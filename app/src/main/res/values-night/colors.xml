@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Stellorbis 设计令牌 — 颜色（深色覆盖）
+
+  生效条件：Android 10（API 29）及以上随系统「深色主题」自动生效。
+  本工程 minSdk 23 且不使用 AndroidX，API 23–28 无法在应用内切换深色，
+  这些版本将始终使用 values/colors.xml 的浅色令牌。
+-->
+<resources>
+
+    <!-- ==================== 品牌与交互 ==================== -->
+    <!-- 深色下 primary 提亮，用于图标与描边 -->
+    <color name="primary">#FF7EA6FF</color>
+    <color name="primary_pressed">#FF6B93E8</color>
+    <color name="primary_container">#FF1B2A4A</color>
+    <color name="primary_container_pressed">#FF24375E</color>
+    <color name="on_primary_container">#FFA8C4FF</color>
+    <color name="primary_text">#FF9DBBFF</color>
+    <!-- 填充式背景改用中蓝，保证白字对比度约 5.5:1 -->
+    <color name="accent_fill">#FF2E5FBF</color>
+    <color name="on_accent_fill">#FFFFFFFF</color>
+
+    <!-- ==================== 文本与分隔 ==================== -->
+    <color name="text_primary">#FFE6E8EB</color>
+    <color name="text_secondary">#FFA7B0BD</color>
+    <color name="text_tertiary">#FF6E7784</color>
+    <color name="text_disabled">#FF565E6B</color>
+    <color name="divider">#FF2A2F38</color>
+
+    <!-- ==================== 背景与容器 ==================== -->
+    <color name="bg">#FF111318</color>
+    <color name="surface">#FF1B1E24</color>
+    <color name="surface_variant">#FF22262E</color>
+    <color name="outline">#FF30363F</color>
+    <color name="control_outline">#FF2C323B</color>
+    <color name="selected_outline">#FF7EA6FF</color>
+
+    <!-- ==================== 语义 ==================== -->
+    <color name="success">#FF3DD68C</color>
+    <color name="warning">#FFE0A030</color>
+    <color name="danger">#FFF16B6B</color>
+
+    <color name="banner_bg">#FF2E2416</color>
+    <color name="banner_stroke">#FF4A3A1E</color>
+
+    <color name="btn_disabled_bg">#FF23272E</color>
+
+    <color name="switch_track_off">#FF3A424D</color>
+
+    <!-- 深色下阴影不可见，改用实色发丝线划出卡片边界 -->
+    <color name="card_stroke">#FF2C323B</color>
+
+    <color name="transparent">#00000000</color>
+</resources>

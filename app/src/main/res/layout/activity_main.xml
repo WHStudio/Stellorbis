@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Stellorbis 主界面。
+  结构：自绘顶栏（状态点 + 设备名 + 重新加载） → 4 个页签 → 未连接横幅 → 4 个独立页面，
+  使状态首屏可见、常用操作零滚动。
+
+  注意：MainActivity 依据 R.id.* 绑定控件。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <!-- ==================== 顶栏 ==================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/page_padding"
+        android:paddingEnd="@dimen/space_1">
+
+        <View
+            android:id="@+id/v_status_dot"
+            android:layout_width="@dimen/dot_size"
+            android:layout_height="@dimen/dot_size"
+            android:background="@drawable/status_dot" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_3"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_topbar_device"
+                style="@style/TopBarDevice"
+                android:text="@string/device_placeholder" />
+
+            <TextView
+                android:id="@+id/tv_topbar_state"
+                style="@style/TopBarState"
+                android:text="@string/state_disconnected" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_reload"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/action_reload"
+            android:focusable="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_refresh"
+            android:tint="@color/text_secondary" />
+    </LinearLayout>
+
+    <View style="@style/RowDivider" />
+
+    <!-- ==================== 页签 ==================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tabbar_height"
+        android:background="@color/surface"
+        android:orientation="horizontal">
+
+        <!-- 每个页签 = FrameLayout([0] 居中标签 + [1] 贴底指示条)，Java 按子 View 下标着色 -->
+        <FrameLayout
+            android:id="@+id/tab_device"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tv_tab_device"
+                style="@style/TabLabel"
+                android:layout_gravity="center"
+                android:text="@string/tab_device" />
+
+            <View
+                android:id="@+id/ind_device"
+                android:layout_width="32dp"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@drawable/tab_indicator" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/tab_noise"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tv_tab_noise"
+                style="@style/TabLabel"
+                android:layout_gravity="center"
+                android:text="@string/tab_noise" />
+
+            <View
+                android:id="@+id/ind_noise"
+                android:layout_width="32dp"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@drawable/tab_indicator" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/tab_sound"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tv_tab_sound"
+                style="@style/TabLabel"
+                android:layout_gravity="center"
+                android:text="@string/tab_sound" />
+
+            <View
+                android:id="@+id/ind_sound"
+                android:layout_width="32dp"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@drawable/tab_indicator" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/tab_touch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tv_tab_touch"
+                style="@style/TabLabel"
+                android:layout_gravity="center"
+                android:text="@string/tab_touch" />
+
+            <View
+                android:id="@+id/ind_touch"
+                android:layout_width="32dp"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@drawable/tab_indicator" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <View style="@style/RowDivider" />
+
+    <!-- ==================== 未连接横幅 ==================== -->
+    <LinearLayout
+        android:id="@+id/ll_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/page_padding"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_marginEnd="@dimen/page_padding"
+        android:background="@drawable/banner_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/space_3"
+        android:paddingTop="@dimen/space_2"
+        android:paddingEnd="@dimen/space_3"
+        android:paddingBottom="@dimen/space_2"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_small"
+            android:layout_height="@dimen/icon_size_small"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_alert"
+            android:tint="@color/warning" />
+
+        <TextView
+            android:id="@+id/tv_banner"
+            style="@style/NoteWarning"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_2"
+            android:layout_weight="1"
+            android:text="@string/banner_disconnected" />
+    </LinearLayout>
+
+    <!-- ==================== 页面容器（支持左右滑动切换） ==================== -->
+    <com.stellorbis.ringultra2026.ui.SwipePager
+        android:id="@+id/swipe_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- 页 1：设备 -->
+        <ScrollView
+            android:id="@+id/page_device"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/page_padding"
+                android:paddingEnd="@dimen/page_padding"
+                android:paddingBottom="@dimen/space_6">
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/section_device" />
+
+                <LinearLayout style="@style/Card">
+                    <TextView
+                        android:id="@+id/tv_state"
+                        style="@style/StatusTitle"
+                        android:text="@string/state_disconnected" />
+
+                    <TextView
+                        android:id="@+id/tv_device"
+                        style="@style/Caption"
+                        android:layout_marginTop="@dimen/space_1"
+                        android:text="@string/device_placeholder" />
+
+                    <View
+                        style="@style/RowDivider"
+                        android:layout_marginTop="@dimen/space_4"
+                        android:layout_marginBottom="@dimen/space_4" />
+
+                    <Button
+                        android:id="@+id/btn_scan"
+                        style="@style/PrimaryButton"
+                        android:text="@string/btn_scan" />
+
+                    <Button
+                        android:id="@+id/btn_disconnect"
+                        style="@style/SecondaryButton"
+                        android:text="@string/btn_disconnect"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/section_battery" />
+
+                <LinearLayout style="@style/Card">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <com.stellorbis.ringultra2026.ui.BatteryView
+                                android:id="@+id/bv_left"
+                                android:layout_width="@dimen/battery_width"
+                                android:layout_height="@dimen/battery_height" />
+
+                            <TextView
+                                android:id="@+id/tv_battery_left"
+                                style="@style/BatteryValue"
+                                android:layout_marginTop="@dimen/space_2"
+                                android:text="@string/battery_unknown" />
+
+                            <TextView
+                                style="@style/BatteryLabel"
+                                android:text="@string/battery_left" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <com.stellorbis.ringultra2026.ui.BatteryView
+                                android:id="@+id/bv_right"
+                                android:layout_width="@dimen/battery_width"
+                                android:layout_height="@dimen/battery_height" />
+
+                            <TextView
+                                android:id="@+id/tv_battery_right"
+                                style="@style/BatteryValue"
+                                android:layout_marginTop="@dimen/space_2"
+                                android:text="@string/battery_unknown" />
+
+                            <TextView
+                                style="@style/BatteryLabel"
+                                android:text="@string/battery_right" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <com.stellorbis.ringultra2026.ui.BatteryView
+                                android:id="@+id/bv_case"
+                                android:layout_width="@dimen/battery_width"
+                                android:layout_height="@dimen/battery_height" />
+
+                            <TextView
+                                android:id="@+id/tv_battery_case"
+                                style="@style/BatteryValue"
+                                android:layout_marginTop="@dimen/space_2"
+                                android:text="@string/battery_unknown" />
+
+                            <TextView
+                                style="@style/BatteryLabel"
+                                android:text="@string/battery_case" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/section_find" />
+
+                <LinearLayout style="@style/Card">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_find_left"
+                            style="@style/OutlineButton"
+                            android:text="@string/find_left" />
+
+                        <Button
+                            android:id="@+id/btn_find_right"
+                            style="@style/OutlineButton"
+                            android:layout_marginStart="@dimen/space_2"
+                            android:text="@string/find_right" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_find_stop"
+                        style="@style/SecondaryButton"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:text="@string/find_stop" />
+
+                    <TextView
+                        style="@style/Caption"
+                        android:layout_marginTop="@dimen/space_3"
+                        android:text="@string/find_note" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- 页 2：噪声 -->
+        <ScrollView
+            android:id="@+id/page_noise"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/page_padding"
+                android:paddingEnd="@dimen/page_padding"
+                android:paddingBottom="@dimen/space_6">
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/section_noise" />
+
+                <!--
+                  4 个互斥噪声模式（2×2）+ 从属于「降噪」的自适应子开关。
+                  自适应不是第 5 个模式，所以不放进网格，而是作为同卡片内的下级开关。
+                -->
+                <LinearLayout style="@style/CardFlush">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/card_padding"
+                        android:paddingTop="@dimen/card_padding"
+                        android:paddingEnd="@dimen/card_padding"
+                        android:paddingBottom="@dimen/card_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/nc_anc"
+                                style="@style/ToggleCard">
+
+                                <ImageView
+                                    style="@style/ToggleCardIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_noise_anc" />
+
+                                <TextView
+                                    style="@style/ToggleCardLabel"
+                                    android:text="@string/noise_anc" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/nc_normal"
+                                style="@style/ToggleCard"
+                                android:layout_marginStart="@dimen/space_2">
+
+                                <ImageView
+                                    style="@style/ToggleCardIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_noise_normal" />
+
+                                <TextView
+                                    style="@style/ToggleCardLabel"
+                                    android:text="@string/noise_normal" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_2"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/nc_trans"
+                                style="@style/ToggleCard">
+
+                                <ImageView
+                                    style="@style/ToggleCardIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_noise_trans" />
+
+                                <TextView
+                                    style="@style/ToggleCardLabel"
+                                    android:text="@string/noise_trans" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/nc_wind"
+                                style="@style/ToggleCard"
+                                android:layout_marginStart="@dimen/space_2">
+
+                                <ImageView
+                                    style="@style/ToggleCardIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_noise_wind" />
+
+                                <TextView
+                                    style="@style/ToggleCardLabel"
+                                    android:text="@string/noise_wind" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View style="@style/RowDividerInset" />
+
+                    <!-- 自适应降噪：降噪模式的子开关，非降噪模式下不可操作 -->
+                    <LinearLayout
+                        android:id="@+id/row_adaptive"
+                        style="@style/SettingRow"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            style="@style/RowIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_noise_adaptive" />
+
+                        <LinearLayout style="@style/RowTextBlock">
+                            <TextView
+                                style="@style/RowTitle"
+                                android:text="@string/noise_adaptive" />
+
+                            <TextView
+                                style="@style/RowDesc"
+                                android:text="@string/noise_adaptive_desc" />
+                        </LinearLayout>
+
+                        <com.stellorbis.ringultra2026.ui.SwitchView
+                            android:id="@+id/sw_adaptive"
+                            style="@style/RowSwitch" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout style="@style/Card">
+                    <TextView
+                        style="@style/GroupLabel"
+                        android:text="@string/noise_anc_strength" />
+
+                    <com.stellorbis.ringultra2026.ui.SegmentedControl
+                        android:id="@+id/sc_anc_grad"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/segment_height" />
+
+                    <View
+                        style="@style/RowDivider"
+                        android:layout_marginTop="@dimen/space_4"
+                        android:layout_marginBottom="@dimen/space_3" />
+
+                    <TextView
+                        style="@style/GroupLabel"
+                        android:text="@string/noise_trans_strength" />
+
+                    <com.stellorbis.ringultra2026.ui.SegmentedControl
+                        android:id="@+id/sc_trans_grad"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/segment_height" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/section_anc_touch" />
+
+                <LinearLayout style="@style/Card">
+                    <TextView
+                        style="@style/Caption"
+                        android:text="@string/anc_touch_note" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_3"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/card_anc_normal"
+                            style="@style/CheckCard">
+
+                            <TextView
+                                style="@style/CheckCardLabel"
+                                android:text="@string/anc_touch_normal" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/card_anc_trans"
+                            style="@style/CheckCard"
+                            android:layout_marginStart="@dimen/space_2">
+
+                            <TextView
+                                style="@style/CheckCardLabel"
+                                android:text="@string/anc_touch_trans" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/card_anc_wind"
+                            style="@style/CheckCard">
+
+                            <TextView
+                                style="@style/CheckCardLabel"
+                                android:text="@string/anc_touch_wind" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/card_anc_anc"
+                            style="@style/CheckCard"
+                            android:layout_marginStart="@dimen/space_2">
+
+                            <TextView
+                                style="@style/CheckCardLabel"
+                                android:text="@string/anc_touch_anc" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_anc_touch_hint"
+                        style="@style/NoteDanger"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:text="@string/anc_touch_need_two"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- 页 3：音效 -->
+        <ScrollView
+            android:id="@+id/page_sound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/page_padding"
+                android:paddingEnd="@dimen/page_padding"
+                android:paddingBottom="@dimen/space_6">
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/section_sound" />
+
+                <LinearLayout style="@style/CardFlush">
+                    <LinearLayout
+                        android:id="@+id/row_eq"
+                        style="@style/SettingRow"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            style="@style/RowIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_equalizer" />
+
+                        <TextView
+                            style="@style/RowLabel"
+                            android:text="@string/eq_label" />
+
+                        <TextView
+                            android:id="@+id/tv_eq_value"
+                            style="@style/RowValue" />
+
+                        <ImageView
+                            style="@style/RowChevron"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <View style="@style/RowDividerInset" />
+
+                    <LinearLayout
+                        android:id="@+id/row_codec"
+                        style="@style/SettingRow"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            style="@style/RowIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_codec" />
+
+                        <TextView
+                            style="@style/RowLabel"
+                            android:text="@string/codec_label" />
+
+                        <TextView
+                            android:id="@+id/tv_codec_value"
+                            style="@style/RowValue" />
+
+                        <ImageView
+                            style="@style/RowChevron"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <View style="@style/RowDividerInset" />
+
+                    <!-- 危险操作提示：常驻可见，不再只用 Toast 一闪而过 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/card_padding"
+                        android:paddingTop="@dimen/space_3"
+                        android:paddingEnd="@dimen/card_padding"
+                        android:paddingBottom="@dimen/space_3">
+
+                        <ImageView
+                            android:layout_width="@dimen/icon_size_small"
+                            android:layout_height="@dimen/icon_size_small"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_alert"
+                            android:tint="@color/warning" />
+
+                        <TextView
+                            style="@style/NoteWarning"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_2"
+                            android:layout_weight="1"
+                            android:text="@string/codec_note" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/section_prompt" />
+
+                <LinearLayout style="@style/Card">
+                    <TextView
+                        style="@style/GroupLabel"
+                        android:text="@string/prompt_label" />
+
+                    <com.stellorbis.ringultra2026.ui.SegmentedControl
+                        android:id="@+id/sc_prompt"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/segment_height" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/section_other" />
+
+                <LinearLayout style="@style/CardFlush">
+                    <LinearLayout style="@style/SettingRow">
+                        <ImageView
+                            style="@style/RowIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_dual_device" />
+
+                        <LinearLayout style="@style/RowTextBlock">
+                            <TextView
+                                style="@style/RowTitle"
+                                android:text="@string/switch_dual" />
+
+                            <TextView
+                                style="@style/RowDesc"
+                                android:text="@string/switch_dual_desc" />
+                        </LinearLayout>
+
+                        <com.stellorbis.ringultra2026.ui.SwitchView
+                            android:id="@+id/sw_dual"
+                            style="@style/RowSwitch" />
+                    </LinearLayout>
+
+                    <View style="@style/RowDividerInset" />
+
+                    <LinearLayout style="@style/SettingRow">
+                        <ImageView
+                            style="@style/RowIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_in_ear" />
+
+                        <LinearLayout style="@style/RowTextBlock">
+                            <TextView
+                                style="@style/RowTitle"
+                                android:text="@string/switch_in_ear" />
+
+                            <TextView
+                                style="@style/RowDesc"
+                                android:text="@string/switch_in_ear_desc" />
+                        </LinearLayout>
+
+                        <com.stellorbis.ringultra2026.ui.SwitchView
+                            android:id="@+id/sw_in_ear"
+                            style="@style/RowSwitch" />
+                    </LinearLayout>
+
+                    <View style="@style/RowDividerInset" />
+
+                    <LinearLayout style="@style/SettingRow">
+                        <ImageView
+                            style="@style/RowIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_game" />
+
+                        <LinearLayout style="@style/RowTextBlock">
+                            <TextView
+                                style="@style/RowTitle"
+                                android:text="@string/switch_game_mode" />
+
+                            <TextView
+                                style="@style/RowDesc"
+                                android:text="@string/switch_game_mode_desc" />
+                        </LinearLayout>
+
+                        <com.stellorbis.ringultra2026.ui.SwitchView
+                            android:id="@+id/sw_game_mode"
+                            style="@style/RowSwitch" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- 页 4：触控 -->
+        <ScrollView
+            android:id="@+id/page_touch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/page_padding"
+                android:paddingEnd="@dimen/page_padding"
+                android:paddingBottom="@dimen/space_6">
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/section_touch" />
+
+                <LinearLayout style="@style/CardFlush">
+                    <LinearLayout style="@style/SettingRow">
+                        <ImageView
+                            style="@style/RowIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_touch" />
+
+                        <LinearLayout style="@style/RowTextBlock">
+                            <TextView
+                                style="@style/RowTitle"
+                                android:text="@string/switch_touch" />
+
+                            <TextView
+                                style="@style/RowDesc"
+                                android:text="@string/switch_touch_desc" />
+                        </LinearLayout>
+
+                        <com.stellorbis.ringultra2026.ui.SwitchView
+                            android:id="@+id/sw_touch"
+                            style="@style/RowSwitch" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SectionTitle"
+                    android:text="@string/touch_mapping" />
+
+                <LinearLayout style="@style/Card">
+                    <!-- 一次只展示一只耳朵，彻底消除原 4x2 Spinner 矩阵的宽度挤压 -->
+                    <com.stellorbis.ringultra2026.ui.SegmentedControl
+                        android:id="@+id/sc_ear"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/segment_height" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_touch_matrix"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </com.stellorbis.ringultra2026.ui.SwipePager>
+</LinearLayout>

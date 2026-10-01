@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 顶栏连接状态圆点；实际颜色由 Java 侧 setBackgroundTintList 决定 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <size
+        android:width="@dimen/dot_size"
+        android:height="@dimen/dot_size" />
+    <solid android:color="@color/text_tertiary" />
+</shape>

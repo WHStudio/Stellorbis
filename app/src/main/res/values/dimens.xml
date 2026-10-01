@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Stellorbis 设计令牌 — 尺寸
+  间距一律取自 4dp 栅格：4 / 8 / 12 / 16 / 20 / 24 / 32。
+  字阶全应用仅 7 级，禁止出现令牌之外的字号。
+-->
+<resources>
+
+    <!-- ==================== 间距栅格 ==================== -->
+    <dimen name="space_1">4dp</dimen>
+    <dimen name="space_2">8dp</dimen>
+    <dimen name="space_3">12dp</dimen>
+    <dimen name="space_4">16dp</dimen>
+    <dimen name="space_5">20dp</dimen>
+    <dimen name="space_6">24dp</dimen>
+    <dimen name="space_8">32dp</dimen>
+
+    <dimen name="page_padding">16dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_gap">12dp</dimen>
+    <dimen name="row_min_height">52dp</dimen>
+
+    <!-- ==================== 图标 ==================== -->
+    <dimen name="icon_size">24dp</dimen>
+    <dimen name="icon_size_row">22dp</dimen>
+    <dimen name="icon_size_small">18dp</dimen>
+
+    <!-- ==================== 形状 ==================== -->
+    <dimen name="radius_card">16dp</dimen>
+    <dimen name="radius_control">12dp</dimen>
+    <dimen name="radius_small">8dp</dimen>
+    <dimen name="radius_dialog">20dp</dimen>
+    <dimen name="stroke_hairline">1dp</dimen>
+    <dimen name="stroke_selected">1.5dp</dimen>
+
+    <dimen name="elevation_card">2dp</dimen>
+    <dimen name="elevation_button">1dp</dimen>
+
+    <!-- ==================== 组件尺寸 ==================== -->
+    <dimen name="topbar_height">56dp</dimen>
+    <dimen name="tabbar_height">48dp</dimen>
+    <dimen name="switch_row_height">56dp</dimen>
+    <dimen name="button_height">44dp</dimen>
+    <dimen name="button_height_small">40dp</dimen>
+    <dimen name="segment_height">38dp</dimen>
+    <dimen name="noise_card_height">76dp</dimen>
+    <dimen name="check_card_height">50dp</dimen>
+    <dimen name="dialog_row_height">52dp</dimen>
+    <dimen name="battery_width">36dp</dimen>
+    <dimen name="battery_height">17dp</dimen>
+    <dimen name="dot_size">8dp</dimen>
+
+    <!-- 自绘开关（ui/SwitchView）：胶囊轨道 46x28dp，内嵌 20dp 圆形滑块 -->
+    <dimen name="switch_width">46dp</dimen>
+    <dimen name="switch_height">28dp</dimen>
+
+    <!-- ==================== 字阶（7 级） ==================== -->
+    <!-- 1. 电量数字 -->
+    <dimen name="text_display">28sp</dimen>
+    <!-- 2. 区块 / 页面标题 -->
+    <dimen name="text_title">17sp</dimen>
+    <!-- 3. 分组小标题 / 标签 -->
+    <dimen name="text_label">12sp</dimen>
+    <!-- 4. 行主文本 -->
+    <dimen name="text_body">15sp</dimen>
+    <!-- 5. 行值 / 数字 -->
+    <dimen name="text_value">15sp</dimen>
+    <!-- 6. 说明 / 注解 -->
+    <dimen name="text_caption">13sp</dimen>
+    <!-- 7. 角标（仅限极短标识，正文不低于 13sp） -->
+    <dimen name="text_micro">11sp</dimen>
+
+    <!-- 组件内文字 -->
+    <dimen name="text_segment">13sp</dimen>
+    <dimen name="text_button">14sp</dimen>
+    <dimen name="text_noise_card">12sp</dimen>
+</resources>

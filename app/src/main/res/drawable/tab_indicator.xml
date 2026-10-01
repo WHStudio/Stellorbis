@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 页签选中指示条：居中的短圆角条，比整宽下划线更精致 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <size
+        android:width="32dp"
+        android:height="3dp" />
+    <corners android:radius="2dp" />
+    <solid android:color="@color/primary" />
+</shape>

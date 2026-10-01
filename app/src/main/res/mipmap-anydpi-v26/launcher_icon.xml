@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  自适应图标（API 26+）。background / foreground / monochrome 三层分别取自
+  mipmap-*/launcher_icon_{background,foreground,monochrome}.png；
+  API 23–25 回退到 mipmap-*/launcher_icon.png。
+  monochrome 仅 Android 13（API 33）及以上生效，低版本忽略。
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@mipmap/launcher_icon_background" />
+    <foreground android:drawable="@mipmap/launcher_icon_foreground" />
+    <monochrome android:drawable="@mipmap/launcher_icon_monochrome" />
+</adaptive-icon>

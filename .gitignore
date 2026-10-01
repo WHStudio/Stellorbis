@@ -1,0 +1,17 @@
+# ---- 构建中间产物（aapt2 / d8 输出，均可由 build.ps1 重新生成）----
+build/
+.gradle/
+dist/
+
+# ---- IDE / 本地环境 ----
+.idea/
+*.iml
+local.properties
+captures/
+.vscode/
+.workbuddy/
+keystore/
+
+# ---- 操作系统 ----
+.DS_Store
+Thumbs.db

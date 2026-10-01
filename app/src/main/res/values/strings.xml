@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Stellorbis</string>
+
+    <!-- ==================== 顶栏 / 页签 ==================== -->
+    <string name="tab_device">设备</string>
+    <string name="tab_noise">噪声</string>
+    <string name="tab_sound">音效</string>
+    <string name="tab_touch">触控</string>
+    <string name="action_reload">重新加载</string>
+    <string name="device_placeholder">--</string>
+    <string name="device_unknown">尚未连接过设备</string>
+
+    <!-- 未连接横幅 -->
+    <string name="banner_disconnected">设备未连接，当前显示的是上次缓存值</string>
+
+    <!-- ==================== 设备 ==================== -->
+    <string name="section_device">连接</string>
+    <string name="btn_scan">连接设备</string>
+    <string name="btn_disconnect">断开连接</string>
+    <string name="state_disconnected">未连接</string>
+    <string name="state_connecting">连接中…</string>
+    <string name="state_connected">已连接</string>
+
+    <!-- ==================== 电量 ==================== -->
+    <string name="section_battery">电量</string>
+    <string name="battery_left">左耳机</string>
+    <string name="battery_right">右耳机</string>
+    <string name="battery_case">充电仓</string>
+    <string name="battery_unknown">--</string>
+    <string name="battery_case_absent">不在仓</string>
+
+    <!-- ==================== 噪声 ==================== -->
+    <string name="section_noise">噪声模式</string>
+    <string name="noise_anc">降噪</string>
+    <string name="noise_normal">正常</string>
+    <string name="noise_trans">通透</string>
+    <string name="noise_wind">抗风噪</string>
+    <string name="noise_adaptive">自适应降噪</string>
+    <string name="noise_adaptive_desc">开启后会被记住，仅在「降噪」模式下生效</string>
+    <string name="noise_adaptive_only_in_anc">自适应降噪仅在「降噪」模式下可用</string>
+    <string name="noise_anc_strength">降噪强度</string>
+    <string name="noise_trans_strength">通透程度</string>
+    <string name="grad_deep">深度</string>
+    <string name="grad_mid">中度</string>
+    <string name="grad_light">轻度</string>
+
+    <string name="section_anc_touch">降噪触控轮换</string>
+    <string name="anc_touch_note">将触控手势设为「降噪控制」可在选中的模式间轮换</string>
+    <string name="anc_touch_normal">正常</string>
+    <string name="anc_touch_trans">通透</string>
+    <string name="anc_touch_wind">风噪</string>
+    <string name="anc_touch_anc">降噪</string>
+    <string name="anc_touch_need_two">至少需开启 2 个模式</string>
+
+    <!-- ==================== 音效 ==================== -->
+    <string name="section_sound">音效</string>
+    <string name="eq_label">均衡器 EQ</string>
+    <string name="codec_label">编码协议</string>
+    <string name="codec_note">切换编码协议会让耳机自动重启，连接将短暂中断</string>
+    <string name="dialog_title_eq">均衡器 EQ</string>
+    <string name="dialog_title_codec">编码协议</string>
+    <string name="codec_confirm_title">切换编码协议会重启耳机</string>
+    <string name="codec_confirm_message">即将切换到「%1$s」。耳机随后会自动重启，蓝牙连接将中断约 10 秒，期间界面无法控制。</string>
+    <string name="confirm_cancel">取消</string>
+    <string name="confirm_ok">仍要切换</string>
+
+    <string name="section_other">其他设置</string>
+    <string name="switch_dual">双设备连接</string>
+    <string name="switch_dual_desc">允许至多两台设备同时在线</string>
+    <string name="switch_in_ear">入耳检测</string>
+    <string name="switch_in_ear_desc">佩戴或取下耳机时，自动开始或暂停播放</string>
+    <string name="switch_game_mode">游戏模式</string>
+    <string name="switch_game_mode_desc">优先降低音频延迟，可能会影响音质</string>
+
+    <!-- ==================== 触控 ==================== -->
+    <string name="section_touch">触控</string>
+    <string name="switch_touch">触控功能</string>
+    <string name="switch_touch_desc">关闭后耳机不会响应任何触控手势</string>
+    <string name="touch_mapping">触控映射</string>
+    <string name="touch_ear_left">左耳</string>
+    <string name="touch_ear_right">右耳</string>
+    <string name="dialog_title_gesture">%1$s · %2$s</string>
+    <string name="gesture_tap">单击</string>
+    <string name="gesture_double">双击</string>
+    <string name="gesture_triple">三击</string>
+    <string name="gesture_long">长按</string>
+
+    <!-- ==================== 查找设备 ==================== -->
+    <string name="section_find">查找设备</string>
+    <string name="find_left">左耳响铃</string>
+    <string name="find_right">右耳响铃</string>
+    <string name="find_stop">停止响铃</string>
+    <string name="find_note">左右耳可同时选中、一起响铃；「停止响铃」会同时关闭两侧</string>
+
+    <!-- ==================== 提示音 ==================== -->
+    <string name="section_prompt">提示音等级</string>
+    <string name="prompt_label">提示音音量</string>
+
+    <!-- ==================== 通用 ==================== -->
+    <string name="not_connected">设备未连接</string>
+</resources>

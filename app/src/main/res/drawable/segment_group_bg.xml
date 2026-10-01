@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 分段控件外框：浅底 + 细描边，内部各段自带 2dp 间距 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/surface_variant" />
+    <corners android:radius="@dimen/radius_control" />
+    <stroke
+        android:width="@dimen/stroke_hairline"
+        android:color="@color/control_outline" />
+</shape>

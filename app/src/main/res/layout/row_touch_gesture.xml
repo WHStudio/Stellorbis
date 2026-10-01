@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 单条触控映射行（手势图标 + 名称 + 当前效果 + 箭头），运行时按当前耳生成 4 条 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/row_bg"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/row_min_height"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/space_2"
+    android:paddingBottom="@dimen/space_2">
+
+    <ImageView
+        android:id="@+id/iv_gesture"
+        android:layout_width="@dimen/icon_size_row"
+        android:layout_height="@dimen/icon_size_row"
+        android:layout_marginEnd="@dimen/space_3"
+        android:contentDescription="@null"
+        android:tint="@color/text_secondary" />
+
+    <TextView
+        android:id="@+id/tv_gesture"
+        style="@style/RowLabel" />
+
+    <TextView
+        android:id="@+id/tv_gesture_value"
+        style="@style/RowValue" />
+
+    <ImageView
+        style="@style/RowChevron"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_chevron_right" />
+</LinearLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 触控功能：触点 + 扩散环 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M6.6,12 a5.4,5.4 0 1 0 10.8,0 a5.4,5.4 0 1 0 -10.8,0"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.8" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M12,3.2 a8.8,8.8 0 0 1 8.8,8.8"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.8" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M3.2,12 a8.8,8.8 0 0 0 8.8,8.8"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.8" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M9.6,12 a2.4,2.4 0 1 0 4.8,0 a2.4,2.4 0 1 0 -4.8,0" />
+</vector>
